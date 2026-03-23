@@ -81,6 +81,23 @@ class MaintenancePlan extends Model
         }
     }
 
+    public function createNextTaskFromCompleted($completedTask)
+    {
+        $nextDate = $this->calculateNextDate($completedTask->scheduled_date);
+
+        return MaintenanceTask::create([
+            'company_id' => $this->company_id,
+            'plan_id' => $this->id,
+            'equipment_id' => $this->equipment_id,
+            'assigned_to' => $this->assigned_to,
+            'title' => $this->title,
+            'type' => 'preventive',
+            'status' => 'pending',
+            'priority' => 'medium',
+            'scheduled_date' => $nextDate,
+        ]);
+    }
+
     public function calculateNextDate($date)
     {
         $newDate = clone $date;

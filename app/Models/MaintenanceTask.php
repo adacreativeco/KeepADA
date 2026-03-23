@@ -37,6 +37,16 @@ class MaintenanceTask extends Model implements HasMedia
         'material_cost' => 'decimal:2',
     ];
 
+    protected static function booted()
+    {
+        static::updated(function ($task) {
+            // Eğer görev tamamlandıysa ve bir plana bağlıysa, bir sonraki görevi oluştur
+            if ($task->wasChanged('status') && $task->status === 'done' && $task->plan) {
+                $task->plan->createNextTaskFromCompleted($task);
+            }
+        });
+    }
+
     public function company()
     {
         return $this->belongsTo(Company::class);
