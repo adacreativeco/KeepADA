@@ -18,6 +18,8 @@ use Filament\Tables\Table;
 
 use App\Filament\Resources\Equipment\RelationManagers\MaintenancePlansRelationManager;
 use App\Filament\Resources\Equipment\RelationManagers\MaintenanceTasksRelationManager;
+use App\Filament\Resources\Equipment\RelationManagers\MaintenanceHistoryRelationManager;
+use App\Filament\Resources\Equipment\RelationManagers\MeterReadingsRelationManager;
 
 class EquipmentResource extends Resource
 {
@@ -57,6 +59,8 @@ class EquipmentResource extends Resource
         return [
             MaintenancePlansRelationManager::class,
             MaintenanceTasksRelationManager::class,
+            MaintenanceHistoryRelationManager::class,
+            MeterReadingsRelationManager::class,
         ];
     }
 

@@ -35,6 +35,16 @@ class Company extends Model
         return $this->hasMany(Equipment::class);
     }
 
+    public function meterReadings()
+    {
+        return $this->hasMany(MeterReading::class);
+    }
+
+    public function stockTransactions()
+    {
+        return $this->hasMany(StockTransaction::class);
+    }
+
     public function isBasics()
     {
         return $this->plan === 'basics';

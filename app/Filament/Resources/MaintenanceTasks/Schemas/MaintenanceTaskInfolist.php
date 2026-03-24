@@ -31,6 +31,13 @@ class MaintenanceTaskInfolist
                                     ]),
                             ]),
                     ]),
+                Section::make('Bulgular ve Notlar')
+                    ->schema([
+                        TextEntry::make('notes')
+                            ->label('Teknisyen Notları')
+                            ->columnSpanFull()
+                            ->placeholder('Not eklenmemiş.'),
+                    ]),
                 Section::make('Maliyet Detayları')
                     ->schema([
                         Grid::make(4)

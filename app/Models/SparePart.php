@@ -39,4 +39,27 @@ class SparePart extends Model
             ->withPivot('quantity_used')
             ->withTimestamps();
     }
+
+    public function stockTransactions()
+    {
+        return $this->hasMany(StockTransaction::class);
+    }
+
+    public function adjustStock($quantity, $type, $taskId = null, $notes = null)
+    {
+        $this->stockTransactions()->create([
+            'company_id' => $this->company_id,
+            'user_id' => auth()->id(),
+            'task_id' => $taskId,
+            'type' => $type,
+            'quantity' => $quantity,
+            'notes' => $notes,
+        ]);
+
+        if ($type === 'in' || ($type === 'adjustment' && $quantity > 0)) {
+            $this->increment('stock_quantity', abs($quantity));
+        } else {
+            $this->decrement('stock_quantity', abs($quantity));
+        }
+    }
 }

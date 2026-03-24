@@ -37,6 +37,14 @@ class SendOverdueNotifications extends Command
                             ])),
                     ])
                     ->sendToDatabase($user);
+
+                // E-posta gönderimi
+                try {
+                    \Illuminate\Support\Facades\Mail::to($user->email)
+                        ->send(new \App\Mail\TaskAssignedMail($task)); // Şimdilik aynı mail kullanılabilir veya yeni oluşturulabilir
+                } catch (\Exception $e) {
+                    \Illuminate\Support\Facades\Log::error('Gecikme maili gönderilemedi: ' . $e->getMessage());
+                }
             }
         }
 

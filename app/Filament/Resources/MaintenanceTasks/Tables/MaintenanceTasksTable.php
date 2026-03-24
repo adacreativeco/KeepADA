@@ -25,6 +25,10 @@ class MaintenanceTasksTable
     public static function configure(Table $table): Table
     {
         return $table
+            ->recordClasses(fn ($record) => 
+                $record->status !== 'done' && $record->scheduled_date->isPast() 
+                ? 'bg-rose-50/50' : null
+            )
             ->columns([
                 TextColumn::make('title')
                     ->label('Başlık')
@@ -126,19 +130,39 @@ class MaintenanceTasksTable
                         'high' => 'Yüksek',
                         'critical' => 'Kritik',
                     ]),
+                SelectFilter::make('sla_status')
+                    ->label('SLA Durumu')
+                    ->options([
+                        'İçinde' => 'SLA İçinde',
+                        'Gecikti' => 'SLA Gecikti',
+                    ])
+                    ->query(function (Builder $query, array $data) {
+                        if ($data['value'] === 'İçinde') {
+                            return $query->whereHas('plan', function ($q) {
+                                $q->whereRaw('TIMESTAMPDIFF(HOUR, scheduled_date, completed_at) <= sla_hours');
+                            });
+                        } elseif ($data['value'] === 'Gecikti') {
+                            return $query->whereHas('plan', function ($q) {
+                                $q->whereRaw('TIMESTAMPDIFF(HOUR, scheduled_date, completed_at) > sla_hours');
+                            });
+                        }
+                    }),
                 SelectFilter::make('assigned_to')
                     ->relationship('assignedUser', 'name')
                     ->label('Teknisyen'),
                 SelectFilter::make('location')
                     ->relationship('equipment.location', 'name')
                     ->label('Lokasyon'),
+                SelectFilter::make('equipment')
+                    ->relationship('equipment', 'name')
+                    ->label('Ekipman'),
             ])
             ->actions([
                 Action::make('markAsDone')
                     ->label('Tamamlandı İşaretle')
                     ->icon('heroicon-o-check-circle')
                     ->color('success')
-                    ->hidden(fn ($record) => $record->status === 'done')
+                    ->hidden(fn ($record) => $record->status === 'done' || auth()->user()->hasRole('viewer'))
                     ->action(function ($record) {
                         $record->update([
                             'status' => 'done',
@@ -149,6 +173,7 @@ class MaintenanceTasksTable
                     ->label('Teknisyen Ata')
                     ->icon('heroicon-o-user-plus')
                     ->color('info')
+                    ->hidden(fn () => auth()->user()->hasRole(['technician', 'viewer']))
                     ->form([
                         \Filament\Forms\Components\Select::make('assigned_to')
                             ->label('Teknisyen')
@@ -162,12 +187,14 @@ class MaintenanceTasksTable
                             'assigned_to' => $data['assigned_to'],
                         ]);
                     }),
-                EditAction::make(),
+                EditAction::make()
+                    ->hidden(fn () => auth()->user()->hasRole('viewer')),
             ])
             ->bulkActions([
                 BulkActionGroup::make([
                     ExportBulkAction::make()->label('Excel Export'),
-                    DeleteBulkAction::make(),
+                    DeleteBulkAction::make()
+                        ->hidden(fn () => auth()->user()->hasRole(['technician', 'viewer'])),
                 ]),
             ]);
     }

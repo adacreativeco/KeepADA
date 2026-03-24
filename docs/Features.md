@@ -14,7 +14,24 @@ Hizmet Seviyesi Anlaşmalarınızı (SLA) dijitalleştirin:
 - **Durumlar:** "İçinde" (SLA süresinde bitti) veya "Gecikti" (SLA süresini aştı).
 - Bu veriler teknisyen performans ölçümü için kritik raporlar sunar.
 
-## 📱 Mobil Uyum ve PWA
+## � Sayaç Takibi ve Kullanım Bazlı Bakım (Meter Readings)
+Sadece takvim bazlı değil, ekipman kullanımına göre bakım planlayın:
+- **Hassas Takip:** Saat, Kilometre veya Adet bazlı sayaç girişleri.
+- **Otomatik Tetikleme:** Belirlenen sayaç aralığı (ör: 1000 saat) dolduğunda sistem otomatik olarak yeni bir bakım görevi oluşturur.
+- **Görsel Geçmiş:** Ekipman detay sayfasında tüm sayaç değişim grafikleri ve kayıtları.
+
+## 📦 Stok Hareketleri ve Denetim İzi (Audit Trail)
+Yedek parça yönetiminde tam şeffaflık:
+- **Hareket Kayıtları:** Her parça kullanımı, girişi veya düzeltmesi "Kimin, Ne Zaman, Hangi Görev İçin" yaptığı bilgisiyle loglanır.
+- **Otomatik İade:** Bir bakım görevi silindiğinde veya parça görevden çıkarıldığında stoklar otomatik olarak iade edilir.
+
+## 🏠 Profesyonel Landing Page
+SaaS operasyonunuz için hazır vitrin:
+- **Modern Tasarım:** Tailwind CSS ve Glassmorphism ile hazırlanmış etkileyici ana sayfa.
+- **Ürün Tanıtımı:** Özellikler, fiyatlandırma paketleri ve CTA alanları ile satışa hazır.
+- **Entegre Kayıt:** Doğrudan Filament kayıt ve giriş sayfalarıyla senkronize.
+
+## �📱 Mobil Uyum ve PWA
 - **PWA Desteği:** KeepADA, tarayıcı üzerinden mobil cihaza uygulama olarak kurulabilir (iOS ve Android).
 - **Hızlı QR:** Ekipman üzerindeki QR kod okutulduğunda şifresiz bir "Kamuya Açık Ekipman Sayfası" açılır. Bu sayfada cihazın durumu, konumu ve son 3 bakımı görüntülenebilir.
 

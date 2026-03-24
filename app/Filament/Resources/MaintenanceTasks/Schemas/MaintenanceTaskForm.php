@@ -29,22 +29,26 @@ class MaintenanceTaskForm
                                     ->label('Ekipman')
                                     ->required()
                                     ->searchable()
-                                    ->preload(),
+                                    ->preload()
+                                    ->disabled(fn () => auth()->user()->hasRole('technician')),
                                 Select::make('plan_id')
                                     ->relationship('plan', 'title')
                                     ->label('Bağlı Plan')
                                     ->searchable()
                                     ->preload()
-                                    ->nullable(),
+                                    ->nullable()
+                                    ->disabled(fn () => auth()->user()->hasRole('technician')),
                                 TextInput::make('title')
                                     ->label('Görev Başlığı')
                                     ->required()
-                                    ->maxLength(255),
+                                    ->maxLength(255)
+                                    ->disabled(fn () => auth()->user()->hasRole('technician')),
                                 Select::make('assigned_to')
                                     ->relationship('assignedUser', 'name')
                                     ->label('Atanan Teknisyen')
                                     ->searchable()
-                                    ->preload(),
+                                    ->preload()
+                                    ->disabled(fn () => auth()->user()->hasRole('technician')),
                             ]),
                     ]),
                 Section::make('Durum ve Öncelik')
@@ -58,7 +62,8 @@ class MaintenanceTaskForm
                                         'corrective' => 'Düzeltici',
                                         'emergency' => 'Acil',
                                     ])
-                                    ->required(),
+                                    ->required()
+                                    ->disabled(fn () => auth()->user()->hasRole('technician')),
                                 Select::make('status')
                                     ->label('Durum')
                                     ->options([
@@ -78,14 +83,16 @@ class MaintenanceTaskForm
                                         'critical' => 'Kritik',
                                     ])
                                     ->required()
-                                    ->default('medium'),
+                                    ->default('medium')
+                                    ->disabled(fn () => auth()->user()->hasRole('technician')),
                             ]),
                         Grid::make(3)
                             ->schema([
                                 DatePicker::make('scheduled_date')
                                     ->label('Planlanan Tarih')
                                     ->displayFormat('d.m.Y')
-                                    ->required(),
+                                    ->required()
+                                    ->disabled(fn () => auth()->user()->hasRole('technician')),
                                 TextInput::make('actual_cost')
                                     ->label('Parça Maliyeti (₺)')
                                     ->numeric()

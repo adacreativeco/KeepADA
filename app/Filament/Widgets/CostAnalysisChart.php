@@ -8,7 +8,12 @@ use App\Models\MaintenanceTask;
 class CostAnalysisChart extends ApexChartWidget
 {
     protected static ?string $chartId = 'costAnalysisChart';
-    protected static ?string $heading = 'Maliyet Analizi (Son 6 Ay)';
+    protected static ?string $heading = 'Maliyet Analizi (İşçilik vs Malzeme)';
+
+    public static function canView(): bool
+    {
+        return !auth()->user()->hasRole('viewer');
+    }
 
     protected function getOptions(): array
     {

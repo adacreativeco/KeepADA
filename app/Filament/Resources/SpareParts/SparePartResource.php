@@ -14,6 +14,8 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 
+use App\Filament\Resources\SpareParts\RelationManagers\StockTransactionsRelationManager;
+
 class SparePartResource extends Resource
 {
     protected static ?string $model = SparePart::class;
@@ -22,6 +24,25 @@ class SparePartResource extends Resource
     protected static ?string $pluralLabel = 'Yedek Parçalar';
     protected static ?string $modelLabel = 'Yedek Parça';
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-cube';
+
+    public static function getNavigationBadge(): ?string
+    {
+        $tenant = \Filament\Facades\Filament::getTenant();
+        
+        if (!$tenant) return null;
+
+        $count = static::getModel()::query()
+            ->where('company_id', $tenant->id)
+            ->whereColumn('stock_quantity', '<=', 'min_stock')
+            ->count();
+
+        return $count > 0 ? (string) $count : null;
+    }
+
+    public static function getNavigationBadgeColor(): ?string
+    {
+        return 'warning';
+    }
 
     public static function form(Schema $schema): Schema
     {
@@ -36,7 +57,7 @@ class SparePartResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            StockTransactionsRelationManager::class,
         ];
     }
 

@@ -17,9 +17,12 @@ class UpcomingTasksTable extends TableWidget
 
     public function table(Table $table): Table
     {
+        $tenant = \Filament\Facades\Filament::getTenant();
+
         return $table
             ->query(
                 MaintenanceTask::query()
+                    ->where('company_id', $tenant?->id)
                     ->whereBetween('scheduled_date', [now()->startOfWeek(), now()->endOfWeek()])
                     ->where('status', '!=', 'done')
             )

@@ -41,6 +41,11 @@ class User extends Authenticatable implements HasTenants
         return $this->belongsToMany(Company::class);
     }
 
+    public function stockTransactions()
+    {
+        return $this->hasMany(StockTransaction::class);
+    }
+
     /**
      * Get the attributes that should be cast.
      *

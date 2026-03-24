@@ -57,6 +57,11 @@ class MaintenancePlanForm
                                     ->numeric()
                                     ->default(1)
                                     ->required(),
+                                TextInput::make('meter_interval')
+                                    ->label('Sayaç Aralığı')
+                                    ->numeric()
+                                    ->suffix('birim')
+                                    ->placeholder('Ör: 1000 saatte bir'),
                             ]),
                         Grid::make(3)
                             ->schema([

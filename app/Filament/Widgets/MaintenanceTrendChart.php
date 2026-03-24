@@ -13,6 +13,9 @@ class MaintenanceTrendChart extends ApexChartWidget
 
     protected function getOptions(): array
     {
+        $tenant = \Filament\Facades\Filament::getTenant();
+        if (!$tenant) return [];
+
         $labels = [];
         $plannedData = [];
         $completedData = [];
@@ -21,11 +24,13 @@ class MaintenanceTrendChart extends ApexChartWidget
             $month = now()->subMonths($i);
             $labels[] = $month->translatedFormat('F');
             
-            $plannedData[] = MaintenanceTask::whereMonth('scheduled_date', $month->month)
+            $plannedData[] = MaintenanceTask::where('company_id', $tenant->id)
+                ->whereMonth('scheduled_date', $month->month)
                 ->whereYear('scheduled_date', $month->year)
                 ->count();
                 
-            $completedData[] = MaintenanceTask::whereMonth('completed_at', $month->month)
+            $completedData[] = MaintenanceTask::where('company_id', $tenant->id)
+                ->whereMonth('completed_at', $month->month)
                 ->whereYear('completed_at', $month->year)
                 ->where('status', 'done')
                 ->count();

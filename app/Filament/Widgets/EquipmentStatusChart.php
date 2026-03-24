@@ -12,9 +12,12 @@ class EquipmentStatusChart extends ApexChartWidget
 
     protected function getOptions(): array
     {
-        $active = Equipment::where('status', 'active')->count();
-        $passive = Equipment::where('status', 'passive')->count();
-        $scrapped = Equipment::where('status', 'scrapped')->count();
+        $tenant = \Filament\Facades\Filament::getTenant();
+        if (!$tenant) return [];
+
+        $active = Equipment::where('company_id', $tenant->id)->where('status', 'active')->count();
+        $passive = Equipment::where('company_id', $tenant->id)->where('status', 'passive')->count();
+        $scrapped = Equipment::where('company_id', $tenant->id)->where('status', 'scrapped')->count();
 
         return [
             'chart' => [

@@ -16,6 +16,8 @@ class MaintenancePlan extends Model
         'estimated_duration_minutes',
         'estimated_cost',
         'sla_hours',
+        'meter_interval',
+        'last_meter_reading',
         'assigned_to',
         'is_active',
         'next_due_date',
@@ -25,7 +27,28 @@ class MaintenancePlan extends Model
         'is_active' => 'boolean',
         'next_due_date' => 'date',
         'estimated_cost' => 'decimal:2',
+        'meter_interval' => 'decimal:2',
+        'last_meter_reading' => 'decimal:2',
     ];
+
+    public function createTaskFromMeter($currentReading)
+    {
+        $task = MaintenanceTask::create([
+            'company_id' => $this->company_id,
+            'plan_id' => $this->id,
+            'equipment_id' => $this->equipment_id,
+            'assigned_to' => $this->assigned_to,
+            'title' => $this->title . " ({$currentReading} " . ($this->equipment->meter_unit ?: '') . ")",
+            'type' => 'preventive',
+            'status' => 'pending',
+            'priority' => 'medium',
+            'scheduled_date' => now(),
+        ]);
+
+        $this->update(['last_meter_reading' => $currentReading]);
+
+        return $task;
+    }
 
     public function company()
     {

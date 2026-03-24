@@ -81,6 +81,17 @@ class EquipmentForm
                                     ->label('Garanti Bitiş Tarihi')
                                     ->displayFormat('d.m.Y'),
                             ]),
+                        Grid::make(2)
+                            ->schema([
+                                TextInput::make('current_meter_reading')
+                                    ->label('Güncel Sayaç Değeri')
+                                    ->numeric()
+                                    ->default(0),
+                                TextInput::make('meter_unit')
+                                    ->label('Sayaç Birimi (ör: Saat, Km)')
+                                    ->placeholder('Saat, Km vb.')
+                                    ->maxLength(255),
+                            ]),
                         Select::make('status')
                             ->label('Durum')
                             ->options([

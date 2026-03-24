@@ -23,6 +23,8 @@ class Equipment extends Model implements HasMedia
         'serial_number',
         'purchase_date',
         'warranty_end_date',
+        'current_meter_reading',
+        'meter_unit',
         'status',
         'notes',
     ];
@@ -30,7 +32,13 @@ class Equipment extends Model implements HasMedia
     protected $casts = [
         'purchase_date' => 'date',
         'warranty_end_date' => 'date',
+        'current_meter_reading' => 'decimal:2',
     ];
+
+    public function meterReadings()
+    {
+        return $this->hasMany(MeterReading::class);
+    }
 
     public function company()
     {
@@ -55,6 +63,11 @@ class Equipment extends Model implements HasMedia
     public function maintenanceTasks()
     {
         return $this->hasMany(MaintenanceTask::class);
+    }
+
+    public function maintenanceHistory()
+    {
+        return $this->hasMany(MaintenanceTask::class)->where('status', 'done');
     }
 
     public function getPredictiveNextDueDateAttribute()

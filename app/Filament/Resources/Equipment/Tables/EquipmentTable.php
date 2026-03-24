@@ -102,11 +102,13 @@ class EquipmentTable
             ])
             ->recordActions([
                 ViewAction::make(),
-                EditAction::make(),
+                EditAction::make()
+                    ->hidden(fn () => auth()->user()->hasRole('viewer')),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
-                    DeleteBulkAction::make(),
+                    DeleteBulkAction::make()
+                        ->hidden(fn () => auth()->user()->hasRole('viewer')),
                 ]),
             ]);
     }

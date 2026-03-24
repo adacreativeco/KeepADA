@@ -40,10 +40,12 @@ class AdminPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([
                 \App\Filament\Widgets\StatsOverview::class,
+                \App\Filament\Widgets\SlaPerformanceChart::class,
                 \App\Filament\Widgets\MaintenanceTrendChart::class,
                 \App\Filament\Widgets\CostAnalysisChart::class,
                 \App\Filament\Widgets\EquipmentStatusChart::class,
                 \App\Filament\Widgets\UpcomingTasksTable::class,
+                \App\Filament\Widgets\CriticalStockWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,

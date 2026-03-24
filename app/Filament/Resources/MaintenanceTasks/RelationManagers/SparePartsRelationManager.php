@@ -55,6 +55,7 @@ class SparePartsRelationManager extends RelationManager
             ])
             ->headerActions([
                 AttachAction::make()
+                    ->hidden(fn () => auth()->user()->hasRole('viewer'))
                     ->form(fn (AttachAction $action): array => [
                         $action->getRecordSelect(),
                         TextInput::make('quantity_used')
@@ -66,12 +67,13 @@ class SparePartsRelationManager extends RelationManager
                     ->after(function (array $data) {
                         $sparePart = \App\Models\SparePart::find($data['recordId']);
                         if ($sparePart) {
-                            $sparePart->decrement('stock_quantity', $data['quantity_used']);
+                            $sparePart->adjustStock($data['quantity_used'], 'out', $this->getOwnerRecord()->id, 'Bakım görevi için kullanıldı');
                         }
                     }),
             ])
             ->recordActions([
                 EditAction::make()
+                    ->hidden(fn () => auth()->user()->hasRole('viewer'))
                     ->form(fn (EditAction $action): array => [
                         TextInput::make('quantity_used')
                             ->label('Miktar')
@@ -82,17 +84,24 @@ class SparePartsRelationManager extends RelationManager
                         $oldQuantity = $record->pivot->quantity_used;
                         $newQuantity = $data['quantity_used'];
                         $diff = $newQuantity - $oldQuantity;
-                        $record->decrement('stock_quantity', $diff);
+                        
+                        if ($diff != 0) {
+                            $type = $diff > 0 ? 'out' : 'in';
+                            $record->adjustStock(abs($diff), $type, $this->getOwnerRecord()->id, 'Bakım görevi miktarı güncellendi');
+                        }
                     }),
                 DetachAction::make()
+                    ->hidden(fn () => auth()->user()->hasRole('viewer'))
                     ->before(function (\App\Models\SparePart $record) {
-                        $record->increment('stock_quantity', $record->pivot->quantity_used);
+                        $record->adjustStock($record->pivot->quantity_used, 'in', $this->getOwnerRecord()->id, 'Bakım görevinden parça çıkarıldı');
                     }),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
-                    DetachBulkAction::make(),
-                    DeleteBulkAction::make(),
+                    DetachBulkAction::make()
+                        ->hidden(fn () => auth()->user()->hasRole('viewer')),
+                    DeleteBulkAction::make()
+                        ->hidden(fn () => auth()->user()->hasRole('viewer')),
                 ]),
             ]);
     }

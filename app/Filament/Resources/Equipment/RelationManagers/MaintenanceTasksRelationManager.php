@@ -42,18 +42,25 @@ class MaintenanceTasksRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
-                CreateAction::make(),
-                AssociateAction::make(),
+                CreateAction::make()
+                    ->hidden(fn () => auth()->user()->hasRole('viewer')),
+                AssociateAction::make()
+                    ->hidden(fn () => auth()->user()->hasRole('viewer')),
             ])
             ->recordActions([
-                EditAction::make(),
-                DissociateAction::make(),
-                DeleteAction::make(),
+                EditAction::make()
+                    ->hidden(fn () => auth()->user()->hasRole('viewer')),
+                DissociateAction::make()
+                    ->hidden(fn () => auth()->user()->hasRole('viewer')),
+                DeleteAction::make()
+                    ->hidden(fn () => auth()->user()->hasRole('viewer')),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
-                    DissociateBulkAction::make(),
-                    DeleteBulkAction::make(),
+                    DissociateBulkAction::make()
+                        ->hidden(fn () => auth()->user()->hasRole('viewer')),
+                    DeleteBulkAction::make()
+                        ->hidden(fn () => auth()->user()->hasRole('viewer')),
                 ]),
             ]);
     }

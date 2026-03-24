@@ -39,12 +39,60 @@ class MaintenanceTask extends Model implements HasMedia
 
     protected static function booted()
     {
+        static::created(function ($task) {
+            // Teknisyen atandıysa bildirim gönder
+            if ($task->assigned_to) {
+                $task->notifyTechnician();
+            }
+        });
+
         static::updated(function ($task) {
+            // Atanan teknisyen değiştiyse bildirim gönder
+            if ($task->wasChanged('assigned_to') && $task->assigned_to) {
+                $task->notifyTechnician();
+            }
+
             // Eğer görev tamamlandıysa ve bir plana bağlıysa, bir sonraki görevi oluştur
             if ($task->wasChanged('status') && $task->status === 'done' && $task->plan) {
                 $task->plan->createNextTaskFromCompleted($task);
             }
         });
+
+        static::deleting(function ($task) {
+            // Görev silindiğinde kullanılan yedek parçaları stoğa geri iade et
+            foreach ($task->spareParts as $sparePart) {
+                $sparePart->adjustStock($sparePart->pivot->quantity_used, 'in', $task->id, 'Bakım görevi silindiği için iade');
+            }
+        });
+    }
+
+    public function notifyTechnician()
+    {
+        if (!$this->assignedUser) return;
+
+        // Veritabanı bildirimi
+        \Filament\Notifications\Notification::make()
+            ->title('Yeni Görev Atandı')
+            ->body("{$this->title} başlıklı görev size atandı.")
+            ->icon('heroicon-o-wrench-screwdriver')
+            ->color('success')
+            ->actions([
+                \Filament\Notifications\Actions\Action::make('view')
+                    ->label('Görüntüle')
+                    ->url(route('filament.admin.resources.maintenance-tasks.view', [
+                        'tenant' => $this->company,
+                        'record' => $this,
+                    ])),
+            ])
+            ->sendToDatabase($this->assignedUser);
+
+        // E-posta bildirimi
+        try {
+            \Illuminate\Support\Facades\Mail::to($this->assignedUser->email)
+                ->send(new \App\Mail\TaskAssignedMail($this));
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('E-posta gönderilemedi: ' . $e->getMessage());
+        }
     }
 
     public function company()
@@ -54,7 +102,8 @@ class MaintenanceTask extends Model implements HasMedia
 
     public function getTotalCostAttribute()
     {
-        return ($this->actual_cost ?: 0) + ($this->labor_cost ?: 0) + ($this->material_cost ?: 0);
+        $sparePartsCost = $this->spareParts()->sum('task_spare_parts.quantity_used * spare_parts.unit_cost');
+        return ($this->actual_cost ?: 0) + ($this->labor_cost ?: 0) + ($this->material_cost ?: 0) + $sparePartsCost;
     }
 
     public function getSlaStatusAttribute()
