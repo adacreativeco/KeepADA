@@ -11,6 +11,7 @@ Sistemin her yönüyle ilgili detaylı kılavuzlara aşağıdan ulaşabilirsiniz
 3.  [**Kullanım Kılavuzu**](docs/UserGuide.md): Ekipman, plan ve görev yönetimi nasıl yapılır?
 4.  [**Öne Çıkan Özellikler**](docs/Features.md): AI Tahminleme, SLA ve QR Kod detayları.
 5.  [**İş Modeli ve Strateji**](docs/BusinessModel.md): Fiyatlandırma ve pazara giriş planı.
+6.  [**Kullanıcı Hikayeleri**](docs/UserStories.md): Yöneticiler için özellik listesi ve hikayeler.
 
 ## 🚀 Hızlı Başlangıç
 
