@@ -26,6 +26,8 @@ class CompanyResource extends Resource
 {
     protected static ?string $model = Company::class;
 
+    protected static bool $isScopedToTenant = false;
+
     protected static ?string $navigationLabel = 'Şirketler';
     protected static ?string $pluralLabel = 'Şirketler';
     protected static ?string $modelLabel = 'Şirket';

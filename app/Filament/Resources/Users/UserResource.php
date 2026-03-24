@@ -18,6 +18,8 @@ class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
+    protected static ?string $tenantOwnershipRelationshipName = 'companies';
+
     protected static ?string $navigationLabel = 'Kullanıcılar';
     protected static ?string $pluralLabel = 'Kullanıcılar';
     protected static ?string $modelLabel = 'Kullanıcı';
