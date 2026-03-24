@@ -28,3 +28,21 @@ KeepADA CMMS, Tesis ve Bakım Yöneticilerinin günlük operasyonel ihtiyaçlar�
 > **Hikaye:** "Ekipman bazında bakım maliyet raporunu Excel olarak indirebilmek istiyorum. Böylece bütçe planlamasını ve tedarikçi ödemelerini yöneteyim."
 
 - **Sistem Karşılığı:** Görev listesinde bulunan "Excel Export" özelliği ile maliyet verileri (İşçilik + Parça) dışa aktarılır. [CostAnalysisChart](file:///c:/Users/samet.atlas/Desktop/KeepADA/app/Filament/Widgets/CostAnalysisChart.php) widget'ı ile dashboard üzerinden görsel analiz sunulur.
+
+## 👷 Teknisyen (Field User)
+
+### 1. Görev Takibi ve Güncelleme
+> **Hikaye:** "Bana atanan bakım görevlerini görmek ve durumunu güncelleyebilmek istiyorum. Böylece tamamladığım işleri işaretleyeyim ve admin anlık görsün."
+
+- **Sistem Karşılığı:** Teknisyenler [MaintenanceTaskResource](file:///c:/Users/samet.atlas/Desktop/KeepADA/app/Filament/Resources/MaintenanceTasks/MaintenanceTaskResource.php) üzerinden sadece kendilerine atanan görevleri görürler. Görev durumunu "Bekliyor"dan "Devam Ediyor" veya "Tamamlandı"ya çekerek süreci anlık güncellerler.
+
+### 2. Bulguların Kaydı (Fotoğraf ve Not)
+> **Hikaye:** "Bakım sırasında fotoğraf ve not ekleyebilmek istiyorum. Böylece bulgularımı kayıt altına alayım ve ileride referans olsun."
+
+- **Sistem Karşılığı:** [MaintenanceTaskForm](file:///c:/Users/samet.atlas/Desktop/KeepADA/app/Filament/Resources/MaintenanceTasks/Schemas/MaintenanceTaskForm.php) içerisinde bulunan "Bakım Öncesi/Sonrası Fotoğraflar" ve "Teknisyen Notları" alanları ile tüm süreç dijital kanıtlarla kayıt altına alınır.
+
+### 3. Otomatik Stok Yönetimi
+> **Hikaye:** "Kullandığım yedek parçayı ve miktarını girip stoktan düşebilmek istiyorum. Böylece stok takibi otomatik yürüsün."
+
+- **Sistem Karşılığı:** [SparePartsRelationManager](file:///c:/Users/samet.atlas/Desktop/KeepADA/app/Filament/Resources/MaintenanceTasks/RelationManagers/SparePartsRelationManager.php) üzerinden göreve parça eklendiğinde, sistem otomatik olarak [SparePart](file:///c:/Users/samet.atlas/Desktop/KeepADA/app/Models/SparePart.php) stok miktarından düşer. Parça çıkarıldığında ise stok iade edilir.
+

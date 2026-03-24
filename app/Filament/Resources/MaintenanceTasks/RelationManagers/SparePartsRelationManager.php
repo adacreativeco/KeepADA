@@ -62,11 +62,32 @@ class SparePartsRelationManager extends RelationManager
                             ->numeric()
                             ->default(1)
                             ->required(),
-                    ]),
+                    ])
+                    ->after(function (array $data) {
+                        $sparePart = \App\Models\SparePart::find($data['recordId']);
+                        if ($sparePart) {
+                            $sparePart->decrement('stock_quantity', $data['quantity_used']);
+                        }
+                    }),
             ])
             ->recordActions([
-                EditAction::make(),
-                DetachAction::make(),
+                EditAction::make()
+                    ->form(fn (EditAction $action): array => [
+                        TextInput::make('quantity_used')
+                            ->label('Miktar')
+                            ->numeric()
+                            ->required(),
+                    ])
+                    ->before(function (\App\Models\SparePart $record, array $data) {
+                        $oldQuantity = $record->pivot->quantity_used;
+                        $newQuantity = $data['quantity_used'];
+                        $diff = $newQuantity - $oldQuantity;
+                        $record->decrement('stock_quantity', $diff);
+                    }),
+                DetachAction::make()
+                    ->before(function (\App\Models\SparePart $record) {
+                        $record->increment('stock_quantity', $record->pivot->quantity_used);
+                    }),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
