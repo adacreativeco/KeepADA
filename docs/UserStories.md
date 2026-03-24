@@ -46,3 +46,12 @@ KeepADA CMMS, Tesis ve Bakım Yöneticilerinin günlük operasyonel ihtiyaçlar�
 
 - **Sistem Karşılığı:** [SparePartsRelationManager](file:///c:/Users/samet.atlas/Desktop/KeepADA/app/Filament/Resources/MaintenanceTasks/RelationManagers/SparePartsRelationManager.php) üzerinden göreve parça eklendiğinde, sistem otomatik olarak [SparePart](file:///c:/Users/samet.atlas/Desktop/KeepADA/app/Models/SparePart.php) stok miktarından düşer. Parça çıkarıldığında ise stok iade edilir.
 
+## 🤝 Müşteri / Müvekkil (Read-only)
+
+### 1. Şeffaf Bakım Geçmişi İzleme
+> **Hikaye:** "Kendi lokasyonumdaki ekipmanlara ait bakım geçmişini görebilmek istiyorum. Böylece hangi bakımların yapıldığını takip edeyim ve şeffaflık sağlansın."
+
+- **Sistem Karşılığı 1 (Panel):** `viewer` rolüne sahip müşteriler, sadece kendi şirketlerine ait [EquipmentResource](file:///c:/Users/samet.atlas/Desktop/KeepADA/app/Filament/Resources/Equipment/EquipmentResource.php) listesini görebilir ve ekipman detayındaki "Bakım Geçmişi" sekmesinden tüm eski kayıtları inceleyebilirler.
+- **Sistem Karşılığı 2 (Hızlı Erişim):** Ekipman üzerindeki QR kod okutulduğunda açılan [Public View](file:///c:/Users/samet.atlas/Desktop/KeepADA/resources/views/equipment/public-view.blade.php) sayfası, herhangi bir giriş gerektirmeden cihazın son 3 bakım kaydını ve genel durumunu şeffaf bir şekilde sunar.
+
+
