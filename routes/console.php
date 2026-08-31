@@ -2,11 +2,11 @@
 
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
-
 use Illuminate\Support\Facades\Schedule;
 
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
 
+Schedule::command('keepada:generate-maintenance-tasks')->dailyAt('06:00');
 Schedule::command('app:send-overdue-notifications')->dailyAt('08:00');

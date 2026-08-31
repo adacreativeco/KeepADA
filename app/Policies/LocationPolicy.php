@@ -1,75 +1,34 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Policies;
 
-use Illuminate\Foundation\Auth\User as AuthUser;
+use App\Models\User;
 use App\Models\Location;
-use Illuminate\Auth\Access\HandlesAuthorization;
 
 class LocationPolicy
 {
-    use HandlesAuthorization;
-    
-    public function viewAny(AuthUser $authUser): bool
+    public function viewAny(User $user): bool
     {
-        return $authUser->can('ViewAny:Location');
+        return true;
     }
 
-    public function view(AuthUser $authUser, Location $location): bool
+    public function view(User $user, Location $location): bool
     {
-        return $authUser->can('View:Location');
+        return $user->canAccessCompany($location->company);
     }
 
-    public function create(AuthUser $authUser): bool
+    public function create(User $user): bool
     {
-        return $authUser->can('Create:Location');
+        return $user->hasAnyRole(['super_admin', 'manager']);
     }
 
-    public function update(AuthUser $authUser, Location $location): bool
+    public function update(User $user, Location $location): bool
     {
-        return $authUser->can('Update:Location');
+        return $user->canAccessCompany($location->company) && $user->hasAnyRole(['super_admin', 'manager']);
     }
 
-    public function delete(AuthUser $authUser, Location $location): bool
+    public function delete(User $user, Location $location): bool
     {
-        return $authUser->can('Delete:Location');
+        return $user->canAccessCompany($location->company) && $user->hasAnyRole(['super_admin', 'manager']);
     }
-
-    public function deleteAny(AuthUser $authUser): bool
-    {
-        return $authUser->can('DeleteAny:Location');
-    }
-
-    public function restore(AuthUser $authUser, Location $location): bool
-    {
-        return $authUser->can('Restore:Location');
-    }
-
-    public function forceDelete(AuthUser $authUser, Location $location): bool
-    {
-        return $authUser->can('ForceDelete:Location');
-    }
-
-    public function forceDeleteAny(AuthUser $authUser): bool
-    {
-        return $authUser->can('ForceDeleteAny:Location');
-    }
-
-    public function restoreAny(AuthUser $authUser): bool
-    {
-        return $authUser->can('RestoreAny:Location');
-    }
-
-    public function replicate(AuthUser $authUser, Location $location): bool
-    {
-        return $authUser->can('Replicate:Location');
-    }
-
-    public function reorder(AuthUser $authUser): bool
-    {
-        return $authUser->can('Reorder:Location');
-    }
-
 }

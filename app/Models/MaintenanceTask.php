@@ -40,19 +40,17 @@ class MaintenanceTask extends Model implements HasMedia
     protected static function booted()
     {
         static::created(function ($task) {
-            // Teknisyen atandıysa bildirim gönder
             if ($task->assigned_to) {
                 $task->notifyTechnician();
             }
         });
 
         static::updated(function ($task) {
-            // Atanan teknisyen değiştiyse bildirim gönder
             if ($task->wasChanged('assigned_to') && $task->assigned_to) {
                 $task->notifyTechnician();
             }
 
-            // Eğer görev tamamlandıysa ve bir plana bağlıysa, bir sonraki görevi oluştur
+            // Görev tamamlandıysa ve bir plana bağlıysa, bir sonraki görevi otomatik oluştur
             if ($task->wasChanged('status') && $task->status === 'done' && $task->plan) {
                 $task->plan->createNextTaskFromCompleted($task);
             }
@@ -70,26 +68,12 @@ class MaintenanceTask extends Model implements HasMedia
     {
         if (!$this->assignedUser) return;
 
-        // Veritabanı bildirimi
-        \Filament\Notifications\Notification::make()
-            ->title('Yeni Görev Atandı')
-            ->body("{$this->title} başlıklı görev size atandı.")
-            ->icon('heroicon-o-wrench-screwdriver')
-            ->color('success')
-            ->actions([
-                \Filament\Notifications\Actions\Action::make('view')
-                    ->label('Görüntüle')
-                    ->url(route('filament.admin.resources.maintenance-tasks.view', [
-                        'tenant' => $this->company,
-                        'record' => $this,
-                    ])),
-            ])
-            ->sendToDatabase($this->assignedUser);
-
         // E-posta bildirimi
         try {
-            \Illuminate\Support\Facades\Mail::to($this->assignedUser->email)
-                ->send(new \App\Mail\TaskAssignedMail($this));
+            if (class_exists(\App\Mail\TaskAssignedMail::class)) {
+                \Illuminate\Support\Facades\Mail::to($this->assignedUser->email)
+                    ->send(new \App\Mail\TaskAssignedMail($this));
+            }
         } catch (\Exception $e) {
             \Illuminate\Support\Facades\Log::error('E-posta gönderilemedi: ' . $e->getMessage());
         }
@@ -119,7 +103,7 @@ class MaintenanceTask extends Model implements HasMedia
 
     public function getSlaColorAttribute()
     {
-        return $this->sla_status === 'İçinde' ? 'success' : 'danger';
+        return $this->sla_status === 'İçinde' ? 'emerald' : 'rose';
     }
 
     public function plan()

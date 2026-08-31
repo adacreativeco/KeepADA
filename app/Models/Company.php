@@ -20,6 +20,11 @@ class Company extends Model
         'plan_expires_at' => 'date',
     ];
 
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
+
     public function members()
     {
         return $this->belongsToMany(User::class);
@@ -33,6 +38,26 @@ class Company extends Model
     public function equipment()
     {
         return $this->hasMany(Equipment::class);
+    }
+
+    public function maintenanceTasks()
+    {
+        return $this->hasMany(MaintenanceTask::class);
+    }
+
+    public function maintenancePlans()
+    {
+        return $this->hasMany(MaintenancePlan::class);
+    }
+
+    public function spareParts()
+    {
+        return $this->hasMany(SparePart::class);
+    }
+
+    public function suppliers()
+    {
+        return $this->hasMany(Supplier::class);
     }
 
     public function meterReadings()

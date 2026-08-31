@@ -3,9 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-
-use Spatie\Permission\Models\Role;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Gate;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,8 +20,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Role::macro('company', function () {
-            return $this->belongsTo(\App\Models\Company::class, 'id', 'id')->whereRaw('1=0');
+        Gate::before(function ($user, $ability) {
+            return $user->hasRole('super_admin') ? true : null;
         });
     }
 }

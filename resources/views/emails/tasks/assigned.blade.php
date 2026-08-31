@@ -16,7 +16,7 @@ Size yeni bir bakım görevi atandı. Detaylar aşağıdadır:
     default => $task->priority
 } }}
 
-<x-mail::button :url="route('filament.admin.resources.maintenance-tasks.view', ['tenant' => $task->company, 'record' => $task])">
+<x-mail::button :url="route('panel.tasks.show', ['company' => $task->company->slug, 'task' => $task->id])">
 Görevi Görüntüle
 </x-mail::button>
 

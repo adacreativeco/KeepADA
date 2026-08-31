@@ -1,75 +1,34 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Policies;
 
-use Illuminate\Foundation\Auth\User as AuthUser;
+use App\Models\User;
 use App\Models\SparePart;
-use Illuminate\Auth\Access\HandlesAuthorization;
 
 class SparePartPolicy
 {
-    use HandlesAuthorization;
-    
-    public function viewAny(AuthUser $authUser): bool
+    public function viewAny(User $user): bool
     {
-        return $authUser->can('ViewAny:SparePart');
+        return true;
     }
 
-    public function view(AuthUser $authUser, SparePart $sparePart): bool
+    public function view(User $user, SparePart $sparePart): bool
     {
-        return $authUser->can('View:SparePart');
+        return $user->canAccessCompany($sparePart->company);
     }
 
-    public function create(AuthUser $authUser): bool
+    public function create(User $user): bool
     {
-        return $authUser->can('Create:SparePart');
+        return $user->hasAnyRole(['super_admin', 'manager', 'technician']);
     }
 
-    public function update(AuthUser $authUser, SparePart $sparePart): bool
+    public function update(User $user, SparePart $sparePart): bool
     {
-        return $authUser->can('Update:SparePart');
+        return $user->canAccessCompany($sparePart->company) && $user->hasAnyRole(['super_admin', 'manager', 'technician']);
     }
 
-    public function delete(AuthUser $authUser, SparePart $sparePart): bool
+    public function delete(User $user, SparePart $sparePart): bool
     {
-        return $authUser->can('Delete:SparePart');
+        return $user->canAccessCompany($sparePart->company) && $user->hasAnyRole(['super_admin', 'manager']);
     }
-
-    public function deleteAny(AuthUser $authUser): bool
-    {
-        return $authUser->can('DeleteAny:SparePart');
-    }
-
-    public function restore(AuthUser $authUser, SparePart $sparePart): bool
-    {
-        return $authUser->can('Restore:SparePart');
-    }
-
-    public function forceDelete(AuthUser $authUser, SparePart $sparePart): bool
-    {
-        return $authUser->can('ForceDelete:SparePart');
-    }
-
-    public function forceDeleteAny(AuthUser $authUser): bool
-    {
-        return $authUser->can('ForceDeleteAny:SparePart');
-    }
-
-    public function restoreAny(AuthUser $authUser): bool
-    {
-        return $authUser->can('RestoreAny:SparePart');
-    }
-
-    public function replicate(AuthUser $authUser, SparePart $sparePart): bool
-    {
-        return $authUser->can('Replicate:SparePart');
-    }
-
-    public function reorder(AuthUser $authUser): bool
-    {
-        return $authUser->can('Reorder:SparePart');
-    }
-
 }

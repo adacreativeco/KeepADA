@@ -1,75 +1,34 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Policies;
 
-use Illuminate\Foundation\Auth\User as AuthUser;
+use App\Models\User;
 use App\Models\MaintenanceTask;
-use Illuminate\Auth\Access\HandlesAuthorization;
 
 class MaintenanceTaskPolicy
 {
-    use HandlesAuthorization;
-    
-    public function viewAny(AuthUser $authUser): bool
+    public function viewAny(User $user): bool
     {
-        return $authUser->can('ViewAny:MaintenanceTask');
+        return true;
     }
 
-    public function view(AuthUser $authUser, MaintenanceTask $maintenanceTask): bool
+    public function view(User $user, MaintenanceTask $task): bool
     {
-        return $authUser->can('View:MaintenanceTask');
+        return $user->canAccessCompany($task->company);
     }
 
-    public function create(AuthUser $authUser): bool
+    public function create(User $user): bool
     {
-        return $authUser->can('Create:MaintenanceTask');
+        return $user->hasAnyRole(['super_admin', 'manager', 'technician']);
     }
 
-    public function update(AuthUser $authUser, MaintenanceTask $maintenanceTask): bool
+    public function update(User $user, MaintenanceTask $task): bool
     {
-        return $authUser->can('Update:MaintenanceTask');
+        return $user->canAccessCompany($task->company) && $user->hasAnyRole(['super_admin', 'manager', 'technician']);
     }
 
-    public function delete(AuthUser $authUser, MaintenanceTask $maintenanceTask): bool
+    public function delete(User $user, MaintenanceTask $task): bool
     {
-        return $authUser->can('Delete:MaintenanceTask');
+        return $user->canAccessCompany($task->company) && $user->hasAnyRole(['super_admin', 'manager']);
     }
-
-    public function deleteAny(AuthUser $authUser): bool
-    {
-        return $authUser->can('DeleteAny:MaintenanceTask');
-    }
-
-    public function restore(AuthUser $authUser, MaintenanceTask $maintenanceTask): bool
-    {
-        return $authUser->can('Restore:MaintenanceTask');
-    }
-
-    public function forceDelete(AuthUser $authUser, MaintenanceTask $maintenanceTask): bool
-    {
-        return $authUser->can('ForceDelete:MaintenanceTask');
-    }
-
-    public function forceDeleteAny(AuthUser $authUser): bool
-    {
-        return $authUser->can('ForceDeleteAny:MaintenanceTask');
-    }
-
-    public function restoreAny(AuthUser $authUser): bool
-    {
-        return $authUser->can('RestoreAny:MaintenanceTask');
-    }
-
-    public function replicate(AuthUser $authUser, MaintenanceTask $maintenanceTask): bool
-    {
-        return $authUser->can('Replicate:MaintenanceTask');
-    }
-
-    public function reorder(AuthUser $authUser): bool
-    {
-        return $authUser->can('Reorder:MaintenanceTask');
-    }
-
 }
