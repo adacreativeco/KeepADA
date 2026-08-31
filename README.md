@@ -1,150 +1,183 @@
-# KeepADA CMMS 🛠️⚡
-
 <div align="center">
 
-**Smart Asset Management, Work Order Scheduling & Predictive Maintenance Platform**
+# 🛠️ KeepADA CMMS
+### Next-Generation Industrial Computerized Maintenance Management System
 
-[![Language: English](https://img.shields.io/badge/Language-English-blue?style=for-the-badge)](README.md)
-[![Language: Turkish](https://img.shields.io/badge/Language-Türkçe-red?style=for-the-badge)](README.tr.md)
-[![Language: German](https://img.shields.io/badge/Language-Deutsch-yellow?style=for-the-badge)](README.de.md)
+**An ultra-modern, multi-tenant asset management, predictive maintenance, and work order orchestration platform built on Laravel 12 & Tailwind CSS.**
 
-[![Laravel](https://img.shields.io/badge/Laravel-12.x-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)](https://laravel.com)
-[![PHP](https://img.shields.io/badge/PHP-8.2%2B-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://php.net)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com)
-[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg?style=for-the-badge)](LICENSE)
+---
 
-[ 🇬🇧 English ](README.md) • [ 🇹🇷 Türkçe ](README.tr.md) • [ 🇩🇪 Deutsch ](README.de.md)
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg?style=flat-square)](LICENSE)
+[![Laravel Version](https://img.shields.io/badge/Laravel-12.x-FF2D20?style=flat-square&logo=laravel&logoColor=white)](https://laravel.com)
+[![PHP Version](https://img.shields.io/badge/PHP-8.2%20%7C%208.3%20%7C%208.4-777BB4?style=flat-square&logo=php&logoColor=white)](https://php.net)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.x-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white)](https://tailwindcss.com)
+[![CI Tests](https://img.shields.io/github/actions/workflow/status/adacreativeco/KeepADA/ci.yml?branch=main&label=CI%20Build&style=flat-square)](https://github.com/adacreativeco/KeepADA/actions)
+
+<br/>
+
+[ 🇬🇧 English ](README.md) &nbsp;•&nbsp; [ 🇹🇷 Türkçe ](README.tr.md) &nbsp;•&nbsp; [ 🇩🇪 Deutsch ](README.de.md)
 
 </div>
 
 ---
 
-![KeepADA CMMS Dashboard](docs/screenshots/dashboard.png)
-
-## 📌 Overview
-
-**KeepADA CMMS** is a modern, high-performance, multi-tenant Computerized Maintenance Management System (CMMS) designed for manufacturing plants, industrial facilities, and technical field operations. Built from the ground up on **Laravel 12**, KeepADA delivers lightning-fast response times, bespoke dark industrial aesthetics, and zero bloat.
+<p align="center">
+  <img src="docs/screenshots/dashboard.png" alt="KeepADA CMMS Main Dashboard" width="100%" style="border-radius: 12px; box-shadow: 0 20px 40px rgba(0,0,0,0.4);" />
+</p>
 
 ---
 
-## ✨ Key Features
+## ⚡ Why KeepADA?
 
-### 1. ⚙️ Asset & Equipment Management
-- **Digital Equipment Registry:** Comprehensive lifecycle tracking with brand, model, serial numbers, categories, and warranty dates.
-- **🧠 AI Predictive Maintenance:** Real-time failure prediction engine estimating next required maintenance based on historical frequency and runtime meter velocity.
-- **⏱️ Meter Reading Logging:** Log operating hours, kilometers, or cycle counts with automatic maintenance threshold alerts.
-- **🏷️ Printable Industrial Asset Tags (`print-label`):** High-contrast, industrial-grade adhesive sticker templates with QR codes optimized for thermal label printers.
+Traditional CMMS platforms are often sluggish, cluttered, or difficult to use on the factory floor. **KeepADA CMMS** is built from the ground up to solve these pain points:
 
-### 2. 📋 Work Orders & Maintenance Tasks
-- **Kanban Board & Table Views:** Drag-and-drop / single-click work order lifecycle management (`Pending` ➔ `In Progress` ➔ `Done` ➔ `Cancelled`).
-- **⏱️ SLA Compliance Tracking:** Real-time calculation of response and resolution times against target SLAs.
-- **💰 Multi-Tier Cost Breakdown:** Detailed tracking of labor costs, contractor fees, and consumed spare parts.
-- **📦 Direct Inventory Deduction:** Link consumed parts directly to work orders with automatic stock reduction.
-
-### 3. 📷 Live Camera QR Scanner & Public Passport
-- **In-App Live Camera QR Scanner:** Technicians can scan asset tags directly from any smartphone, tablet, or browser webcam.
-- **🌐 Public Digital Asset Passport (`/e/{code}`):** Zero-login public passport allowing instant equipment specs lookup and on-site issue reporting by scanning physical QR stickers.
-
-### 4. 📅 Automated Maintenance Scheduler (Cron Engine)
-- **Time & Meter-Based Plans:** Define periodic schedule rules (Daily, Weekly, Monthly, Quarterly, Yearly, or Every X Operating Hours).
-- **🤖 Automated Task Generation:** Dedicated background command (`php artisan keepada:generate-maintenance-tasks`) scans schedules and auto-spawns work orders.
-- **One-Click Manual Trigger:** Trigger all pending maintenance plans on-demand from the web panel.
-
-### 5. 📊 Advanced Analytics, MTTR / MTBF & CSV Exports
-- **MTTR (Mean Time to Repair):** Real-time calculation of average equipment repair duration (hours).
-- **MTBF (Mean Time Between Failures):** Asset reliability and uptime scoring.
-- **📈 Spend Distribution Charts:** Interactive Chart.js doughnut breakdowns (Labor vs Services vs Spare Parts).
-- **🏆 Technician Productivity Scorecard:** Team completion rates and on-time performance metrics.
-- **📥 Excel-Compatible CSV Exports:** One-click exports for Equipment lists, Work Orders history, and Stock movement ledgers.
-
-### 6. 🌍 Multi-Language Support (i18n)
-- Seamless dynamic switching between **English (EN)**, **Turkish (TR)**, and **German (DE)** across panel views and public pages.
+- 🚀 **100% Bespoke Architecture:** Zero slow administrative wrappers or heavy boilerplate. Pure, blazing-fast Laravel 12 + Alpine.js + Tailwind CSS.
+- 🏢 **Native Multi-Tenancy:** Manage multiple manufacturing facilities, plants, or clients under isolated sub-tenants (`/panel/{company:slug}/...`).
+- 🧠 **AI-Assisted Predictive Maintenance:** Automatic time-to-failure forecasting calculated from runtime meters, operating velocity, and historical breakdowns.
+- 📷 **Live QR Workflow:** Built-in camera QR scanner + zero-login Public Digital Asset Passports (`/e/{code}`) + printable adhesive industrial asset tags.
+- 📊 **Executive Analytics:** Real-time MTTR (Mean Time to Repair), MTBF (Mean Time Between Failures), SLA compliance, and cost breakdown charts.
+- 🌍 **Triple-Language Ready:** Instant switching between English 🇬🇧, Turkish 🇹🇷, and German 🇩🇪.
 
 ---
 
-## 📸 Screenshots Gallery
+## 🧭 System Modules & Feature Tour
 
-| Equipment & AI Predictive Forecast | Work Orders Kanban Board |
-|:---:|:---:|
-| ![Equipment](docs/screenshots/equipment_detail.png) | ![Tasks Kanban](docs/screenshots/tasks_kanban.png) |
+### 1. ⚙️ Asset & Equipment Lifecycle Management
+- **Central Asset Registry:** Track critical equipment with serial numbers, brands, models, warranty terms, and assigned plant locations.
+- **Smart Runtime Meters:** Log operating hours, cycles, or mileage with instant maintenance threshold triggers.
+- **Printable Thermal QR Labels:** Generates ready-to-print adhesive stickers formatted for thermal label printers.
 
-| Advanced Analytics & MTTR/MTBF | Maintenance Calendar |
-|:---:|:---:|
-| ![Reports](docs/screenshots/reports_analytics.png) | ![Calendar](docs/screenshots/calendar.png) |
-
-| Public Digital QR Passport | Secure Login |
-|:---:|:---:|
-| ![QR Passport](docs/screenshots/public_qr_passport.png) | ![Login](docs/screenshots/login.png) |
+<p align="center">
+  <img src="docs/screenshots/equipment_detail.png" alt="Equipment & Predictive Maintenance" width="95%" />
+</p>
 
 ---
 
-## 🛠️ Tech Stack
+### 2. 📋 Work Orders & Maintenance Operations
+- **Interactive Kanban Board & Data Table:** Fluid task lifecycle management across `Pending`, `In Progress`, `Done`, and `Cancelled`.
+- **SLA & Target Resolution Tracking:** Real-time countdowns and visual indicators for overdue tasks.
+- **Cost Accounting & Parts Consumption:** Track labor cost, technician work hours, contractor expenses, and automatically deduct consumed spare parts from inventory.
 
-- **Backend:** Laravel 12, PHP 8.2+
-- **Database:** SQLite / MySQL / PostgreSQL
-- **Frontend & Styling:** Blade, Tailwind CSS, Alpine.js, Lucide Icons
-- **Visualizations:** Chart.js, FullCalendar v6
-- **QR Engine:** HTML5-QRCode, QR Server API
-- **Authorization:** Spatie Laravel Permission & Custom Tenant Middleware
+<p align="center">
+  <img src="docs/screenshots/tasks_kanban.png" alt="Work Orders Kanban Board" width="95%" />
+</p>
 
 ---
 
-## 🚀 Quickstart & Installation
+### 3. 📊 Advanced Analytics, MTTR / MTBF & Financial Reports
+- **Reliability Metrics:** Automated computation of **MTTR** (Mean Time to Repair in hours) and **MTBF** (Mean Time Between Failures).
+- **Cost Distribution Breakdown:** Interactive Chart.js charts detailing Labor vs Outside Services vs Spare Parts.
+- **Technician Scorecard:** Comprehensive leaderboard tracking completion rates and on-time SLA percentages.
+- **Direct CSV Exports:** Instant one-click CSV downloads for Work Orders, Equipment Inventory, and Stock Movement Ledgers.
 
-### 1. Prerequisites
-- PHP `>= 8.2` (with `pdo`, `mbstring`, `openssl`, `tokenizer`, `xml`, `ctype`, `json`, `curl` extensions)
-- Composer
-- Node.js & NPM (optional for asset compilation)
+<p align="center">
+  <img src="docs/screenshots/reports_analytics.png" alt="Advanced Reports and MTTR MTBF Analytics" width="95%" />
+</p>
 
-### 2. Clone & Setup
+---
+
+### 4. 🗓️ Interactive Maintenance Calendar & Scheduling
+- **FullCalendar v6 Integration:** Month, week, and day views of all upcoming preventive tasks and scheduled work orders with color-coded priority indicators.
+
+<p align="center">
+  <img src="docs/screenshots/calendar.png" alt="Maintenance Calendar" width="95%" />
+</p>
+
+---
+
+### 5. 🌐 Public Digital QR Passport (`/e/{code}`)
+- Technicians or operators on the factory floor can scan the physical machine sticker with any smartphone camera to view technical specifications, operating status, and submit an immediate breakdown ticket without requiring panel login.
+
+<p align="center">
+  <img src="docs/screenshots/public_qr_passport.png" alt="Public Digital Asset Passport" width="95%" />
+</p>
+
+---
+
+## 🛠️ Technology Stack
+
+| Layer | Technology |
+|---|---|
+| **Backend Core** | PHP 8.2+ / 8.3 / 8.4, Laravel 12.x |
+| **Database** | SQLite (Default Dev), MySQL 8+, PostgreSQL |
+| **Frontend UI** | Blade, Tailwind CSS, Alpine.js, Lucide Icons |
+| **Charts & Calendar** | Chart.js, FullCalendar v6 |
+| **QR & Scanning** | HTML5-QRCode, QR Server API |
+| **Authentication & RBAC** | Spatie Laravel Permission, Custom Multi-Tenant Middleware |
+
+---
+
+## 🚀 Quick Start & Installation Guide
+
+### 1. Requirements
+- **PHP** `>= 8.2` (Extensions: `pdo`, `mbstring`, `openssl`, `tokenizer`, `xml`, `ctype`, `json`, `curl`, `fileinfo`)
+- **Composer** `>= 2.2`
+- **Node.js & NPM** (Optional)
+
+### 2. Installation Steps
+
 ```bash
-# Clone the repository
+# 1. Clone the repository
 git clone https://github.com/adacreativeco/KeepADA.git
 cd KeepADA
 
-# Install PHP dependencies
+# 2. Install PHP dependencies
 composer install
 
-# Environment configuration
+# 3. Environment configuration
 cp .env.example .env
 php artisan key:generate
 
-# Database migration & seeding
+# 4. Run database migrations & seed demo data
 php artisan migrate --seed
 
-# Start development server
+# 5. Start the development server
 php -S 127.0.0.1:8090 -t public
 ```
 
-### 3. Default Demo Credentials
-- **URL:** [http://127.0.0.1:8090/login](http://127.0.0.1:8090/login)
-- **Email:** `admin@admin.com`
-- **Password:** `password`
-- **Demo Tenant:** `/panel/keepada-demo/dashboard`
+---
+
+## 🔑 Demo Access Credentials
+
+Once the server is running, visit **[http://127.0.0.1:8090](http://127.0.0.1:8090)**:
+
+| Parameter | Value |
+|---|---|
+| **Login URL** | [http://127.0.0.1:8090/login](http://127.0.0.1:8090/login) |
+| **Email** | `admin@admin.com` |
+| **Password** | `password` |
+| **Default Tenant Panel** | `/panel/keepada-demo/dashboard` |
+| **Sample Public QR Passport** | `/e/HK-001` |
 
 ---
 
-## ⚙️ Background Tasks & Cron Setup
+## ⚙️ Automated Task Engine & Cron Configuration
 
-Add the following Cron entry to your server to run automated work order generation and overdue SLA notifications:
+To enable automated periodic maintenance task generation and SLA deadline monitoring, add the standard Laravel cron entry to your server:
 
 ```bash
 * * * * * cd /path-to-your-project && php artisan schedule:run >> /dev/null 2>&1
 ```
 
-Available artisan commands:
+### Dedicated Artisan Commands:
 ```bash
-# Generate work orders from due maintenance plans
+# Scan maintenance plans and generate scheduled work orders
 php artisan keepada:generate-maintenance-tasks
 
-# Send notifications for overdue work orders
+# Send automated email notifications for overdue SLA tasks
 php artisan app:send-overdue-notifications
 ```
 
 ---
 
+## 🤝 Contributing
+
+Contributions are warmly welcome! Please read our [CONTRIBUTING.md](CONTRIBUTING.md) guide and [SECURITY.md](SECURITY.md) policy before opening pull requests.
+
+---
+
 ## 📄 License
 
-This project is licensed under the **Apache License 2.0**. See the [LICENSE](LICENSE) file for details.
+KeepADA CMMS is open-source software licensed under the **[Apache License 2.0](LICENSE)**.
 
-Copyright © 2026 [ADA Creative Co.](https://adacreative.co)
+Copyright © 2026 **[ADA Creative Co.](https://adacreative.co)** - All rights reserved.

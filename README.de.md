@@ -1,126 +1,153 @@
-# KeepADA CMMS 🛠️⚡
-
 <div align="center">
 
-**Intelligente Instandhaltungsplanung, Anlagenverwaltung & Vorausschauende Wartung**
+# 🛠️ KeepADA CMMS
+### Industrielles Instandhaltungs- & Anlagenmanagementsystem der nächsten Generation
 
-[![Sprache: Deutsch](https://img.shields.io/badge/Sprache-Deutsch-yellow?style=for-the-badge)](README.de.md)
-[![Sprache: English](https://img.shields.io/badge/Language-English-blue?style=for-the-badge)](README.md)
-[![Sprache: Türkisch](https://img.shields.io/badge/Dil-T%C3%BCrk%C3%A7e-red?style=for-the-badge)](README.tr.md)
+**Eine moderne, mandantenfähige Plattform für Instandhaltungsplanung, vorausschauende Wartung und Arbeitsauftragssteuerung auf Basis von Laravel 12 & Tailwind CSS.**
 
-[![Laravel](https://img.shields.io/badge/Laravel-12.x-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)](https://laravel.com)
-[![PHP](https://img.shields.io/badge/PHP-8.2%2B-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://php.net)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com)
-[![Lizenz: Apache 2.0](https://img.shields.io/badge/Lizenz-Apache_2.0-blue.svg?style=for-the-badge)](LICENSE)
+---
 
-[ 🇩🇪 Deutsch ](README.de.md) • [ 🇬🇧 English ](README.md) • [ 🇹🇷 Türkçe ](README.tr.md)
+[![Lizenz: Apache 2.0](https://img.shields.io/badge/Lizenz-Apache%202.0-blue.svg?style=flat-square)](LICENSE)
+[![Laravel Version](https://img.shields.io/badge/Laravel-12.x-FF2D20?style=flat-square&logo=laravel&logoColor=white)](https://laravel.com)
+[![PHP Version](https://img.shields.io/badge/PHP-8.2%20%7C%208.3%20%7C%208.4-777BB4?style=flat-square&logo=php&logoColor=white)](https://php.net)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.x-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white)](https://tailwindcss.com)
+[![CI Tests](https://img.shields.io/github/actions/workflow/status/adacreativeco/KeepADA/ci.yml?branch=main&label=CI%20Build&style=flat-square)](https://github.com/adacreativeco/KeepADA/actions)
+
+<br/>
+
+[ 🇩🇪 Deutsch ](README.de.md) &nbsp;•&nbsp; [ 🇬🇧 English ](README.md) &nbsp;•&nbsp; [ 🇹🇷 Türkçe ](README.tr.md)
 
 </div>
 
 ---
 
-![KeepADA CMMS Dashboard](docs/screenshots/dashboard.png)
-
-## 📌 Übersicht
-
-**KeepADA CMMS** ist ein modernes, mandantenfähiges (Multi-Tenant) Instandhaltungs- und Anlagenmanagementsystem (CMMS) für Produktionsbetriebe, Industrieanlagen und technische Außendienste. Entwickelt auf Basis von **Laravel 12**, überzeugt KeepADA durch blitzschnelle Performance, ein ansprechendes dunkles Industrie-Design und maximale Zuverlässigkeit ohne überflüssige Abhängigkeiten.
+<p align="center">
+  <img src="docs/screenshots/dashboard.png" alt="KeepADA CMMS Haupt-Dashboard" width="100%" style="border-radius: 12px; box-shadow: 0 20px 40px rgba(0,0,0,0.4);" />
+</p>
 
 ---
 
-## ✨ Hauptfunktionen
+## ⚡ Warum KeepADA CMMS?
 
-### 1. ⚙️ Anlagen- & Maschinenverwaltung (Asset Management)
-- **Digitales Anlagenverzeichnis:** Vollständige Lebenszyklusverfolgung mit Marke, Modell, Seriennummer, Kategorie und Garantiefristen.
-- **🧠 KI-basierte vorausschauende Wartung (Predictive Maintenance):** Ausfallprognose-Algorithmus zur Berechnung des nächsten optimalen Wartungszeitpunkts.
-- **⏱️ Betriebsstundenzähler & Zählerstandserfassung:** Erfassung von Betriebsstunden, Kilometern oder Zyklen mit automatischer Schwellenwertüberwachung.
-- **🏷️ Druckbare Industrie-Typenschilder (`print-label`):** Hochkontrast-QR-Etiketten für Thermodrucker zur physischen Kennzeichnung von Maschinen.
+Herkömmliche Instandhaltungssysteme sind oft langsam, überladen und im Produktionsalltag schwer zu bedienen. **KeepADA CMMS** wurde von Grund auf für maximale Effizienz in industriellen Betrieben entwickelt:
 
-### 2. 📋 Arbeitsaufträge & Wartungsaufgaben
-- **Kanban-Board & Tabellenansicht:** Effiziente Auftragsabwicklung (`Ausstehend` ➔ `In Bearbeitung` ➔ `Abgeschlossen` ➔ `Storniert`).
-- **⏱️ SLA-Überwachung:** Echtzeitüberwachung von Reaktions- und Lösungszeiten zur Vermeidung von Ausfallzeiten.
-- **💰 Detaillierte Kostenaufstellung:** Separate Erfassung von Arbeitskosten, Fremddienstleistungen und Materialverbrauch.
-- **📦 Automatische Bestandsabbuchung:** Automatische Lagerbestandsanpassung bei Ersatzteilverwendung im Arbeitsauftrag.
-
-### 3. 📷 Live-Kamera QR-Scanner & Digitaler Maschinenpass
-- **Integrierter QR-Scanner:** Techniker können QR-Codes direkt per Smartphone- oder Webcam-Kamera erfassen.
-- **🌐 Öffentlicher digitaler Maschinenpass (`/e/{code}`):** Schneller Abruf technischer Daten und Störungsmeldung ohne vorherige Anmeldung direkt vor Ort.
-
-### 4. 📅 Automatisierte Wartungsplanung (Cron-Engine)
-- **Zeit- & Zählerstandsbasierte Pläne:** Wiederkehrende Wartungszyklen (täglich, wöchentlich, monatlich, jährlich oder nach X Betriebsstunden).
-- **🤖 Automatische Auftragserstellung:** Hintergrundbefehl (`php artisan keepada:generate-maintenance-tasks`) generiert fällige Arbeitsaufträge automatisch.
-- **Manuelle Auslösung mit einem Klick:** Direkte Planüberprüfung und Auftragsgenerierung über das Dashboard.
-
-### 5. 📊 Erweiterte Analytik, MTTR / MTBF & CSV-Export
-- **MTTR (Mean Time to Repair):** Durchschnittliche Reparaturdauer in Stunden.
-- **MTBF (Mean Time Between Failures):** Zuverlässigkeitsindex für unterbrechungsfreien Betrieb.
-- **📈 Kostenanalyse:** Interaktive Chart.js Donut-Diagramme (Arbeitszeit vs. Dienstleistungen vs. Ersatzteile).
-- **🏆 Techniker-Leistungsübersicht:** Kennzahlen zur Teameffizienz und Termintreue.
-- **📥 CSV-Export für Excel:** Direkter Export von Anlagen-, Auftrags- und Bestandsdaten.
-
-### 6. 🌍 Mehrsprachigkeit (i18n)
-- Nahtloser Wechsel zwischen **Deutsch (DE)**, **Englisch (EN)** und **Türkisch (TR)**.
+- 🚀 **100% Maßgeschneiderte Architektur:** Keine trägen Administrationspakete. Pures, ultraschnelles Laravel 12 + Alpine.js + Tailwind CSS.
+- 🏢 **Echte Mandantenfähigkeit (Multi-Tenancy):** Verwalten Sie mehrere Produktionsstandorte oder Betriebe unter isolierten URLs (`/panel/{company:slug}/...`).
+- 🧠 **KI-gestützte vorausschauende Wartung (Predictive Maintenance):** Automatische Ausfallprognosen basierend auf Betriebsstunden, Zählerständen und Fehlerhistorie.
+- 📷 **Integrierte QR-Workflows:** Live-Kamera-QR-Scanner + Öffentlicher Maschinenpass ohne Login (`/e/{code}`) + druckbare Industrie-Typenschilder.
+- 📊 **Management-Kennzahlen:** Echtzeit-Berechnung von **MTTR** (Mean Time to Repair), **MTBF** (Mean Time Between Failures), SLA-Treue und Kostenanalysen.
+- 🌍 **Dreisprachig:** Nahtloser Wechsel zwischen Deutsch 🇩🇪, Englisch 🇬🇧 und Türkisch 🇹🇷.
 
 ---
 
-## 📸 Bildschirmfotos-Galerie
+## 🧭 Systemmodule & Funktionsübersicht
 
-| Anlage & KI-Ausfallprognose | Arbeitsaufträge Kanban-Board |
-|:---:|:---:|
-| ![Equipment](docs/screenshots/equipment_detail.png) | ![Tasks Kanban](docs/screenshots/tasks_kanban.png) |
+### 1. ⚙️ Anlagen- & Maschinenlebenszyklus
+- **Zentrales Anlagenregister:** Erfassung von Seriennummern, Marken, Modellen, Gewährleistungsfristen und Standorten.
+- **Intelligente Betriebsstundenzähler:** Überwachung von Betriebsstunden, Zyklen oder Kilometern mit automatischen Wartungsschwellen.
+- **Druckbare Thermo-Typenschilder:** Automatisch generierte QR-Etiketten, optimiert für Standard-Thermodrucker.
 
-| Erweiterte Analytik & MTTR/MTBF | Wartungskalender |
-|:---:|:---:|
-| ![Reports](docs/screenshots/reports_analytics.png) | ![Calendar](docs/screenshots/calendar.png) |
+<p align="center">
+  <img src="docs/screenshots/equipment_detail.png" alt="Anlage und vorausschauende Wartung" width="95%" />
+</p>
 
-| Öffentlicher QR-Maschinenpass | Sicherer Login-Bildschirm |
-|:---:|:---:|
-| ![QR Passport](docs/screenshots/public_qr_passport.png) | ![Login](docs/screenshots/login.png) |
+---
+
+### 2. 📋 Arbeitsaufträge & Instandhaltungsprozesse
+- **Interaktives Kanban-Board & Daten-Tabelle:** Durchgängige Auftragsabwicklung über `Ausstehend`, `In Bearbeitung`, `Abgeschlossen` und `Storniert`.
+- **SLA- & Termintreueüberwachung:** Visuelle Warnungen und Restzeitanzeigen bei Fristüberschreitungen.
+- **Kosten- & Materialerfassung:** Arbeitszeitaufwand, Fremdleistungen und automatische Bestandsabbuchung verwendeter Ersatzteile.
+
+<p align="center">
+  <img src="docs/screenshots/tasks_kanban.png" alt="Arbeitsaufträge Kanban-Board" width="95%" />
+</p>
+
+---
+
+### 3. 📊 Erweiterte Analytik, MTTR / MTBF & Kostenberichte
+- **Zuverlässigkeitskennzahlen:** Automatische Berechnung von **MTTR** (mittlere Reparaturdauer in Stunden) und **MTBF** (störungsfreie Betriebszeit).
+- **Kostenauswertungen:** Interaktive Chart.js Diagramme (Eigenleistung vs. Fremdleistung vs. Ersatzteilverbrauch).
+- **Techniker-Leistungsübersicht:** Kennzahlen zur Termintreue und Auftragsabschlussquote.
+- **CSV-Exportfunktion:** Schneller Download von Anlagen-, Auftrags- und Lagerbestandslisten für Excel.
+
+<p align="center">
+  <img src="docs/screenshots/reports_analytics.png" alt="Erweiterte Berichte und MTTR MTBF Analytik" width="95%" />
+</p>
+
+---
+
+### 4. 🗓️ Interaktiver Wartungskalender
+- **FullCalendar v6 Integration:** Monats-, Wochen- und Tagesansicht aller anstehenden Instandhaltungs- und Inspektionsaufträge.
+
+<p align="center">
+  <img src="docs/screenshots/calendar.png" alt="Wartungskalender" width="95%" />
+</p>
+
+---
+
+### 5. 🌐 Öffentlicher QR-Maschinenpass (`/e/{code}`)
+- Techniker oder Maschinenbediener können das Typenschild an der Maschine scannen, um ohne vorherige Anmeldung technische Daten einzusehen und Störungen direkt zu melden.
+
+<p align="center">
+  <img src="docs/screenshots/public_qr_passport.png" alt="Öffentlicher digitaler Maschinenpass" width="95%" />
+</p>
 
 ---
 
 ## 🛠️ Technologie-Stack
 
-- **Backend:** Laravel 12, PHP 8.2+
-- **Datenbank:** SQLite / MySQL / PostgreSQL
-- **Frontend:** Blade, Tailwind CSS, Alpine.js, Lucide Icons
-- **Visualisierung:** Chart.js, FullCalendar v6
-- **QR-Integration:** HTML5-QRCode, QR Server API
-- **Rechte & Mandanten:** Spatie Laravel Permission & Custom Tenant Middleware
+| Ebene | Technologie |
+|---|---|
+| **Backend-Kern** | PHP 8.2+ / 8.3 / 8.4, Laravel 12.x |
+| **Datenbank** | SQLite (Standard Dev), MySQL 8+, PostgreSQL |
+| **Frontend UI** | Blade, Tailwind CSS, Alpine.js, Lucide Icons |
+| **Diagramme & Kalender** | Chart.js, FullCalendar v6 |
+| **QR & Scanning** | HTML5-QRCode, QR Server API |
+| **Rollen & Sicherheit** | Spatie Laravel Permission, Custom Multi-Tenant Middleware |
 
 ---
 
-## 🚀 Schnellstart & Installation
+## 🚀 Schnellstart & Installationsanleitung
 
 ### 1. Voraussetzungen
-- PHP `>= 8.2` (mit `pdo`, `mbstring`, `openssl`, `tokenizer`, `xml`, `ctype`, `json`, `curl`)
-- Composer
-- Node.js & NPM (optional)
+- **PHP** `>= 8.2` (Erweiterungen: `pdo`, `mbstring`, `openssl`, `tokenizer`, `xml`, `ctype`, `json`, `curl`, `fileinfo`)
+- **Composer** `>= 2.2`
+- **Node.js & NPM** (Optional)
 
 ### 2. Installationsschritte
+
 ```bash
-# Repository klonen
+# 1. Repository klonen
 git clone https://github.com/adacreativeco/KeepADA.git
 cd KeepADA
 
-# PHP-Abhängigkeiten installieren
+# 2. PHP-Abhängigkeiten installieren
 composer install
 
-# Umgebungskonfiguration
+# 3. Umgebungskonfiguration erstellen
 cp .env.example .env
 php artisan key:generate
 
-# Datenbank migrieren & Beispieldaten laden
+# 4. Datenbank migrieren & Beispieldaten laden
 php artisan migrate --seed
 
-# Entwicklungsserver starten
+# 5. Entwicklungsserver starten
 php -S 127.0.0.1:8090 -t public
 ```
 
-### 3. Standard-Zugangsdaten (Demo)
-- **Login-URL:** [http://127.0.0.1:8090/login](http://127.0.0.1:8090/login)
-- **E-Mail:** `admin@admin.com`
-- **Passwort:** `password`
-- **Demo-Mandant:** `/panel/keepada-demo/dashboard`
+---
+
+## 🔑 Standard-Zugangsdaten (Demo)
+
+Nach dem Starten des Servers unter **[http://127.0.0.1:8090](http://127.0.0.1:8090)**:
+
+| Parameter | Wert |
+|---|---|
+| **Login-URL** | [http://127.0.0.1:8090/login](http://127.0.0.1:8090/login) |
+| **E-Mail** | `admin@admin.com` |
+| **Passwort** | `password` |
+| **Standard-Mandanten-Dashboard** | `/panel/keepada-demo/dashboard` |
+| **Beispiel-QR-Maschinenpass** | `/e/HK-001` |
 
 ---
 
@@ -136,6 +163,6 @@ Fügen Sie folgenden Cronjob auf Ihrem Server ein, um wiederkehrende Wartungsauf
 
 ## 📄 Lizenz
 
-Dieses Projekt ist unter der **Apache License 2.0** lizenziert. Weitere Details finden Sie in der Datei [LICENSE](LICENSE).
+Dieses Projekt ist unter der **[Apache License 2.0](LICENSE)** als Open-Source-Software lizenziert.
 
-Copyright © 2026 [ADA Creative Co.](https://adacreative.co)
+Copyright © 2026 **[ADA Creative Co.](https://adacreative.co)** - Alle Rechte vorbehalten.
