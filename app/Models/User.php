@@ -41,6 +41,11 @@ class User extends Authenticatable
         return $this->hasMany(MaintenanceTask::class, 'assigned_to');
     }
 
+    public function maintenanceTasks()
+    {
+        return $this->hasMany(MaintenanceTask::class, 'assigned_to');
+    }
+
     /**
      * Get the attributes that should be cast.
      *

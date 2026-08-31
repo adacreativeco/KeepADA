@@ -62,11 +62,15 @@
 
 ---
 
-## 📸 Ekran Görüntüleri
+## 📸 Ekran Görüntüleri Galerisi
 
-| Ekipman & Kestirimci Bakım Tahmini | Bakım Takvimi |
+| Ekipman & Kestirimci Bakım Tahmini | İş Emirleri Kanban Panosu |
 |:---:|:---:|
-| ![Equipment](docs/screenshots/equipment_detail.png) | ![Calendar](docs/screenshots/calendar.png) |
+| ![Equipment](docs/screenshots/equipment_detail.png) | ![Tasks Kanban](docs/screenshots/tasks_kanban.png) |
+
+| İleri Düzey Analitik & MTTR/MTBF | Bakım Takvimi |
+|:---:|:---:|
+| ![Reports](docs/screenshots/reports_analytics.png) | ![Calendar](docs/screenshots/calendar.png) |
 
 | Halka Açık Dijital QR Pasaportu | Güvenli Giriş Ekranı |
 |:---:|:---:|

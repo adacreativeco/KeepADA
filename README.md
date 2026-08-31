@@ -64,9 +64,13 @@
 
 ## 📸 Screenshots Gallery
 
-| Equipment & AI Predictive Forecast | Maintenance Calendar |
+| Equipment & AI Predictive Forecast | Work Orders Kanban Board |
 |:---:|:---:|
-| ![Equipment](docs/screenshots/equipment_detail.png) | ![Calendar](docs/screenshots/calendar.png) |
+| ![Equipment](docs/screenshots/equipment_detail.png) | ![Tasks Kanban](docs/screenshots/tasks_kanban.png) |
+
+| Advanced Analytics & MTTR/MTBF | Maintenance Calendar |
+|:---:|:---:|
+| ![Reports](docs/screenshots/reports_analytics.png) | ![Calendar](docs/screenshots/calendar.png) |
 
 | Public Digital QR Passport | Secure Login |
 |:---:|:---:|

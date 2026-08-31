@@ -62,11 +62,15 @@
 
 ---
 
-## 📸 Bildschirmfotos
+## 📸 Bildschirmfotos-Galerie
 
-| Anlage & KI-Ausfallprognose | Wartungskalender |
+| Anlage & KI-Ausfallprognose | Arbeitsaufträge Kanban-Board |
 |:---:|:---:|
-| ![Equipment](docs/screenshots/equipment_detail.png) | ![Calendar](docs/screenshots/calendar.png) |
+| ![Equipment](docs/screenshots/equipment_detail.png) | ![Tasks Kanban](docs/screenshots/tasks_kanban.png) |
+
+| Erweiterte Analytik & MTTR/MTBF | Wartungskalender |
+|:---:|:---:|
+| ![Reports](docs/screenshots/reports_analytics.png) | ![Calendar](docs/screenshots/calendar.png) |
 
 | Öffentlicher QR-Maschinenpass | Sicherer Login-Bildschirm |
 |:---:|:---:|
