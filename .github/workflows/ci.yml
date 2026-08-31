@@ -11,22 +11,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout Code
+      uses: actions/checkout@v4
 
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '8.2'
-        extensions: mbstring, xml, ctype, iconv, intl, pdo, sqlite, pdo_sqlite, bcmath, soap, zip
+        php-version: '8.3'
+        extensions: mbstring, xml, ctype, iconv, intl, pdo, sqlite, pdo_sqlite, bcmath, soap, zip, fileinfo
         coverage: none
 
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
 
     - name: Install Dependencies
-      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+      run: composer install --no-interaction --prefer-dist --no-progress --no-scripts
 
-    - name: Generate key
+    - name: Generate Key
       run: php artisan key:generate
 
     - name: Set Directory Permissions
@@ -34,6 +35,12 @@ jobs:
 
     - name: Run Migrations
       run: php artisan migrate --force
+      env:
+        DB_CONNECTION: sqlite
+        DB_DATABASE: ":memory:"
+
+    - name: Execute Tests
+      run: php artisan test
       env:
         DB_CONNECTION: sqlite
         DB_DATABASE: ":memory:"

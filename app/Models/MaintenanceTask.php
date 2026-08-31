@@ -3,13 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Spatie\MediaLibrary\HasMedia;
-use Spatie\MediaLibrary\InteractsWithMedia;
 
-class MaintenanceTask extends Model implements HasMedia
+class MaintenanceTask extends Model
 {
-    use InteractsWithMedia;
-
     protected $fillable = [
         'company_id',
         'plan_id',
